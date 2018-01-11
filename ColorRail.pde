@@ -25,7 +25,7 @@ class ColorRail{
   int[] sampleColor(PGraphics img){
       
       for(int i = 0; i < cols.length; i++){
-        cols[i] = img.pixels[int(location.x) +int(location.y) * img.width];
+        cols[i] = img.pixels[int(location.x + map(i, 0, cols.length, -30, 30))  +int(location.y) * img.width];
         //r[i] = cols[i] >> 16 & 0xFF;
         //g[i] = cols[i] >> 8 & 0xFF;
         //b[i] = cols[i] & 0xFF;

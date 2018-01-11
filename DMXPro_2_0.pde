@@ -20,7 +20,7 @@ float angle = 0;
 PrintWriter lightPositions;
 PrintWriter effectOutput;
 
-int numEffects = 1;
+int numEffects = 3;
 ArrayList<PGraphics> Layers;
 ArrayList<Boolean> modes;
 
@@ -28,6 +28,8 @@ ArrayList<Boolean> modes;
 int channel = 1;
 PVector nextLocation;
 
+SinGradient sinGrad;
+LinearGradient linGrad;
 
 void setup() {
   size(500, 500, P2D);
@@ -82,6 +84,9 @@ void setup() {
   for (int i = 0; i < numEffects; i++) {
     Layers.add(createGraphics(width, height));
   }
+  
+  sinGrad = new SinGradient();
+  linGrad = new LinearGradient();
 }
 
 void draw() {
@@ -89,14 +94,24 @@ void draw() {
   println(frameRate);
   if (modes.get(0)) {
     PGraphics g = Layers.get(0);
-    //float temp = map(sin(angle), -1, 1, 0, 255);
-    angle += PI / 60;
-    //println(temp);
+    float temp = map(sin(angle), -1, 1, 0, 255);
+    angle += PI / map(mouseX, 0, width, 100, 10);
+    println(temp);
     g.beginDraw();
     g.background(dIntensity);
     g.endDraw();
   }
-
+  
+  if(modes.get(1)){
+   PGraphics g = Layers.get(1);
+   sinGrad.update(g);
+  }
+  
+  if(modes.get(2)){
+   PGraphics g = Layers.get(2);
+   linGrad.update(g);
+  }
+  
   for (int i = 0; i < modes.size(); i++) {
     if (modes.get(i)) {
       PGraphics tmp = Layers.get(i);
@@ -110,6 +125,55 @@ void draw() {
 void controllerChange(int channel, int number, int value) {
   if (number == 48) {
     dIntensity = value * 2;
+  }
+}
+
+void noteOn(Note note){
+ 
+  if(note.pitch() == 55){
+    for(int i = 0; i < modes.size(); i++){
+    if(i == 0){
+      Boolean m = modes.get(i);
+      m = true;
+      modes.set(i, m);
+      bus.sendNoteOn(0, 55, 127);
+    }else{
+      Boolean m = modes.get(i);
+      m = false; 
+      modes.set(i, m);
+      bus.sendNoteOn(0, 55, 0);
+      } 
+    }
+  }
+  if(note.pitch() == 56){
+    for(int i = 0; i < modes.size(); i++){
+      if(i == 1){
+        Boolean m = modes.get(i);
+        m = true;
+        modes.set(i, m);
+        bus.sendNoteOn(0, 56, 127);
+      }else{
+        Boolean m = modes.get(i);
+        m = false; 
+        modes.set(i, m);
+        bus.sendNoteOn(0, 56, 0);
+      } 
+    }
+  }
+  if(note.pitch() == 57){
+    for(int i = 0; i < modes.size(); i++){
+      if(i == 2){
+        Boolean m = modes.get(i);
+        m = true;
+        modes.set(i, m);
+        bus.sendNoteOn(0, 57, 127);
+      }else{
+        Boolean m = modes.get(i);
+        m = false; 
+        modes.set(i, m);
+        bus.sendNoteOn(0, 57, 0);
+      } 
+    }
   }
 }
 
