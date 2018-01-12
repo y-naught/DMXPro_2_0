@@ -34,7 +34,13 @@ class FourChDimmer{
     stroke(0);
     fill(255);
     rect(location[i].x, location[i].y, sz, sz);
-    text(channel[i], location[i].x, location[i].y);
+    fill(0);
+    text(channel[i] + " ", location[i].x - sz /5, location[i].y + (sz/4));
   }
  }
+ 
+ void move(float x, float y, int id){
+    location[id].x = x;
+    location[id].y = y;  
+  }
 }

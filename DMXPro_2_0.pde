@@ -14,6 +14,8 @@ int numDPacks = 1;
 ArrayList<FourChDimmer> DPacks;
 int numColorRails = 1;
 ArrayList<ColorRail> colorRails;
+int numThCh = 4;
+ArrayList<ThreeCh> thCh;
 
 int dIntensity = 0;
 float angle = 0;
@@ -54,13 +56,26 @@ void setup() {
     }
     DPacks.add(new FourChDimmer(channel, temp));
     channel += 4;
+    println(channel);
   }
+  
+  
   
   colorRails = new ArrayList<ColorRail>();
   for(int i = 0; i < numColorRails; i++){
     colorRails.add(new ColorRail(channel, placeLight(nextLocation)));
     channel += 26;  
+    nextLocation = placeLight(nextLocation);
   }
+  
+  thCh = new ArrayList<ThreeCh>();
+  for(int i = 0; i < numThCh; i++){
+    thCh.add(new ThreeCh(channel, placeLight(nextLocation)));
+    channel += 3;
+    nextLocation = placeLight(nextLocation);
+  }
+  
+  
 
   ////////////////////////////////////////////////////////////
   /*            Modes and Layers Initialization             */
@@ -91,13 +106,12 @@ void setup() {
 
 void draw() {
   background(0);
-  println(frameRate);
   if (modes.get(0)) {
     PGraphics g = Layers.get(0);
     float temp = map(sin(angle), -1, 1, 0, 255);
     angle += PI / map(mouseX, 0, width, 100, 10);
-    println(temp);
     g.beginDraw();
+    //g.background(temp);
     g.background(dIntensity);
     g.endDraw();
   }
@@ -206,12 +220,20 @@ void runLights() {
           if(k == 0){
             dmxOutput.set(cr.channel[k], 255);
           }else{
-          dmxOutput.set(cr.channel[k], cOrdered[k-1]);
-          //dmxOutput.set(cr.channel[k], cOrdered[k-1]);
-          //dmxOutput.set(cr.channel[k], cOrdered[k-1]);
+            dmxOutput.set(cr.channel[k], cOrdered[k-1]);
           }
         }
+      }
+      
+      
+      for(int i = 0; i < thCh.size(); i++){
         
+        ThreeCh tc = thCh.get(i);
+        int tmp = tc.sampleColor(g);
+        
+        dmxOutput.set(tc.channel[0], tmp >> 16 & 0xFF);
+        dmxOutput.set(tc.channel[1], tmp  >> 8 & 0xFF);
+        dmxOutput.set(tc.channel[2], tmp & 0xFF);
       }
     }
   }
@@ -228,15 +250,20 @@ void drawLights() {
     ColorRail cr = colorRails.get(i);
     cr.display();
   }
+  
+  for(int i = 0; i <thCh.size(); i++){
+    ThreeCh tc = thCh.get(i);
+    tc.display();
+  }
 }
 
 PVector placeLight(PVector l) {
   PVector tmp = l.copy();
-  if (tmp.x + 40 > width) {
+  if (tmp.x > width) {
     tmp.x = 50;
     tmp.y += 40;
   } else {
     tmp.x += 60;
   }
   return tmp;
-}
+ }
