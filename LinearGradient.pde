@@ -1,3 +1,4 @@
+
 class LinearGradient{
   
   color c1 = color(255, 0, 0);

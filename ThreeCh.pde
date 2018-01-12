@@ -1,4 +1,3 @@
-
 class ThreeCh{
    int[] channel;
    color c;

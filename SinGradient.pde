@@ -1,4 +1,3 @@
-
 class SinGradient{
   color c1;
   color c2;
