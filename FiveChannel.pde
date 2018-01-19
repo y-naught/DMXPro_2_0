@@ -8,7 +8,7 @@ class FiveCh{
    FiveCh(int stCh, PVector loc){
       channel = new int[5];
       for(int i = stCh; i < stCh + channel.length; i++){
-          channel[stCh-i] = i;
+        channel[i - stCh] = i;
         }
       location = loc.copy();
    }
@@ -28,9 +28,9 @@ class FiveCh{
    
    int sampleColor(PGraphics g){
      int tmp = 0;
-     g.loadPixels();
+     //g.loadPixels();
      tmp = g.pixels[int(location.x) +int(location.y) * g.width];
-     g.updatePixels();
+     //g.updatePixels();
      return tmp;
    }
 }

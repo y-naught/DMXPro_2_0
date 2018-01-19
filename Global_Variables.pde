@@ -8,7 +8,7 @@ MidiBus bus;
   ////////////////////////////////////////////////////////////
 
 DmxP512 dmxOutput;
-int universeSize = 256;
+int universeSize = 512;
 String DMXPRO_PORT = "COM4";
 int DMXPRO_BAUDRATE = 115000;
 
@@ -19,13 +19,13 @@ int DMXPRO_BAUDRATE = 115000;
   
 int channel = 1;
 PVector nextLocation;
-int numDPacks = 1;
+int numDPacks = 3;
 ArrayList<FourChDimmer> DPacks;
-int numColorRails = 1;
+int numColorRails = 2;
 ArrayList<ColorRail> colorRails;
-int numThCh = 4;
+int numThCh = 20;
 ArrayList<ThreeCh> thCh;
-int numFiCh = 2;
+int numFiCh = 0;
 ArrayList<FiveCh> fvCh;
 
   ////////////////////////////////////////////////////////////

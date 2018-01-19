@@ -33,9 +33,9 @@ class FourChDimmer{
   for(int i = 0; i < channel.length; i++){
     stroke(0);
     fill(255);
-    rect(location[i].x, location[i].y, sz, sz);
+    rect(location[i].x + 500, location[i].y, sz, sz);
     fill(0);
-    text(channel[i] + " ", location[i].x - sz /5, location[i].y + (sz/4));
+    text(channel[i] + " ", location[i].x + 500 - sz /5, location[i].y + (sz/4));
   }
  }
  

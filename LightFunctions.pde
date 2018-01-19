@@ -2,7 +2,7 @@ void runLights() {
   for (int j = 0; j < modes.size(); j++) {
     if (modes.get(j)) {
       PGraphics g = Layers.get(j);
-      
+      //g.loadPixels();
       //Dimmer Pack Outputs
       for (int i = 0; i < DPacks.size(); i++) {
         FourChDimmer d = DPacks.get(i);
@@ -45,17 +45,20 @@ void runLights() {
       }
       
       //Five Channel Output
-      for(int i = 0; i < fvCh.size(); i++){
+      //for(int i = 0; i < fvCh.size(); i++){
         
-        FiveCh fv = fvCh.get(i);
-        int tmp = fv.sampleColor(g);
+      //  FiveCh fv = fvCh.get(i);
+      //  int tmp = fv.sampleColor(g);
         
-        dmxOutput.set(fv.channel[0], tmp >> 16 & 0xFF);
-        dmxOutput.set(fv.channel[1], tmp  >> 8 & 0xFF);
-        dmxOutput.set(fv.channel[2], tmp & 0xFF);
-        dmxOutput.set(fv.channel[3], 0);
-        dmxOutput.set(fv.channel[4], 0);
-      }
+        
+      //  dmxOutput.set(fv.channel[0], 255);
+      //  dmxOutput.set(fv.channel[1], tmp >> 16 & 0xFF);
+      //  dmxOutput.set(fv.channel[2], tmp  >> 8 & 0xFF);
+      //  dmxOutput.set(fv.channel[3], tmp & 0xFF);
+      //  dmxOutput.set(fv.channel[4], 255);
+        
+      //}
+      //g.updatePixels();
     }
   }
 }
@@ -77,15 +80,15 @@ void drawLights() {
     tc.display();
   }
   
-  for(int i = 0; i <fvCh.size(); i++){
-    FiveCh fv = fvCh.get(i);
-    fv.display();
-  }
+  //for(int i = 0; i <fvCh.size(); i++){
+  //  FiveCh fv = fvCh.get(i);
+  //  fv.display();
+  //}
 }
 
 PVector placeLight(PVector l) {
   PVector tmp = l.copy();
-  if (tmp.x > width) {
+  if (tmp.x > width/2) {
     tmp.x = 50;
     tmp.y += 40;
   } else {

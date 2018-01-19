@@ -1,55 +1,60 @@
 
 
-  ////////////////////////////////////////////////////////////
-  /*                        SETUP                           */
-  ////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+/*                        SETUP                           */
+////////////////////////////////////////////////////////////
 
 void setup() {
-  size(500, 500, P2D);
+  size(1000, 500);
   rectMode(CENTER);
+  frameRate(30);
 
   bus = new MidiBus(this, "APC MINI", "APC MINI");
 
-  dmxOutput = new DmxP512(this, universeSize, false);
+  dmxOutput = new DmxP512(this, universeSize, true);
   dmxOutput.setupDmxPro(DMXPRO_PORT, DMXPRO_BAUDRATE);
 
   nextLocation = new PVector(50, 50);
-  
+
   DPacks = new ArrayList<FourChDimmer>();
 
   for (int i = 0; i < numDPacks; i++) {
     PVector[] temp = new PVector[4];
     for (int j = 0; j < 4; j++) {
+      //nextLocation.x += 500;
       temp[j] = placeLight(nextLocation);
+      //nextLocation.x -= 500;
       nextLocation = temp[j].copy();
     }
     DPacks.add(new FourChDimmer(channel, temp));
     channel += 4;
   }
-  
+
   colorRails = new ArrayList<ColorRail>();
-  for(int i = 0; i < numColorRails; i++){
+  for (int i = 0; i < numColorRails; i++) {
     colorRails.add(new ColorRail(channel, placeLight(nextLocation)));
     channel += 26;  
     nextLocation = placeLight(nextLocation);
   }
-  
+
+  //fvCh = new ArrayList<FiveCh>();
+  //for(int i = 0; i < numThCh; i++){
+  //  fvCh.add(new FiveCh(channel, placeLight(nextLocation)));
+  //  channel += 5;
+  //  nextLocation = placeLight(nextLocation);
+  //}
+
   thCh = new ArrayList<ThreeCh>();
-  for(int i = 0; i < numThCh; i++){
+  for (int i = 0; i < numThCh; i++) {
     thCh.add(new ThreeCh(channel, placeLight(nextLocation)));
     channel += 3;
     nextLocation = placeLight(nextLocation);
   }
-  
-  fvCh = new ArrayList<FiveCh>();
-  for(int i = 0; i < numThCh; i++){
-    thCh.add(new ThreeCh(channel, placeLight(nextLocation)));
-    channel += 5;
-    nextLocation = placeLight(nextLocation);
-  }
-  
-  
-  
+
+  println(channel);
+
+
+
 
   ////////////////////////////////////////////////////////////
   /*            Modes and Layers Initialization             */
@@ -71,40 +76,41 @@ void setup() {
 
   Layers = new ArrayList<PGraphics>();
   for (int i = 0; i < numEffects; i++) {
-    Layers.add(createGraphics(width, height));
+    Layers.add(createGraphics(500, 500));
   }
-  
+
   sinGrad = new SinGradient();
   linGrad = new LinearGradient();
 }
 
-  ////////////////////////////////////////////////////////////
-  /*                       DRAW                             */
-  ////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+/*                       DRAW                             */
+////////////////////////////////////////////////////////////
 
 
 void draw() {
   background(0);
+  //println(frameRate);
   if (modes.get(0)) {
     PGraphics g = Layers.get(0);
     float temp = map(sin(angle), -1, 1, 0, 255);
-    angle += PI / map(mouseX, 0, width, 100, 10);
+    angle += PI / map(mouseX, 0, width/2, 100, 10);
     g.beginDraw();
     //g.background(temp);
     g.background(dIntensity);
     g.endDraw();
   }
-  
-  if(modes.get(1)){
-   PGraphics g = Layers.get(1);
-   sinGrad.update(g);
+
+  if (modes.get(1)) {
+    PGraphics g = Layers.get(1);
+    sinGrad.update(g);
   }
-  
-  if(modes.get(2)){
-   PGraphics g = Layers.get(2);
-   linGrad.update(g);
+
+  if (modes.get(2)) {
+    PGraphics g = Layers.get(2);
+    linGrad.update(g);
   }
-  
+
   for (int i = 0; i < modes.size(); i++) {
     if (modes.get(i)) {
       PGraphics tmp = Layers.get(i);

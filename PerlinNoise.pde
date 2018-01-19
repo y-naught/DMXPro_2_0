@@ -9,6 +9,4 @@ class PerlinNoise{
   void update(){
     
   }
-  
-  void 
 }

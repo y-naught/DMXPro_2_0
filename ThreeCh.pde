@@ -24,9 +24,9 @@ class ThreeCh{
    
    int sampleColor(PGraphics g){
      int tmp = 0;
-     g.loadPixels();
+     //g.loadPixels();
      tmp = g.pixels[int(location.x) +int(location.y) * g.width];
-     g.updatePixels();
+     //g.updatePixels();
      return tmp;
    }
    

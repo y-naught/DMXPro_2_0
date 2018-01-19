@@ -12,12 +12,12 @@ void noteOn(Note note){
       Boolean m = modes.get(i);
       m = true;
       modes.set(i, m);
-      bus.sendNoteOn(0, 55, 127);
+      bus.sendNoteOn(0, 56, 127);
     }else{
       Boolean m = modes.get(i);
       m = false; 
       modes.set(i, m);
-      bus.sendNoteOn(0, 55, 0);
+      bus.sendNoteOn(0, 56, 0);
       } 
     }
   }
@@ -27,12 +27,12 @@ void noteOn(Note note){
         Boolean m = modes.get(i);
         m = true;
         modes.set(i, m);
-        bus.sendNoteOn(0, 56, 127);
+        bus.sendNoteOn(0, 57, 127);
       }else{
         Boolean m = modes.get(i);
         m = false; 
         modes.set(i, m);
-        bus.sendNoteOn(0, 56, 0);
+        bus.sendNoteOn(0, 57, 0);
       } 
     }
   }
@@ -42,12 +42,12 @@ void noteOn(Note note){
         Boolean m = modes.get(i);
         m = true;
         modes.set(i, m);
-        bus.sendNoteOn(0, 57, 127);
+        bus.sendNoteOn(0, 58, 127);
       }else{
         Boolean m = modes.get(i);
         m = false; 
         modes.set(i, m);
-        bus.sendNoteOn(0, 57, 0);
+        bus.sendNoteOn(0, 58, 0);
       } 
     }
   }
