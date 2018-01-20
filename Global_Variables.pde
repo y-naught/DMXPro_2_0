@@ -47,11 +47,13 @@ PrintWriter effectOutput;
 Boolean window = false;
 Boolean onScreen = false;
 int numEffects = 3;
-int numEffects2 = 1;
+int numEffects2 = 2;
 ArrayList<PGraphics> Layers;
 ArrayList<PGraphics> Layers2;
 ArrayList<Boolean> modes;
 ArrayList<Boolean> modes2;
+
+float nDif = 0.5;
 
 SinGradient sinGrad;
 LinearGradient linGrad;

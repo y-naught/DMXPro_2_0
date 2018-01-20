@@ -134,6 +134,20 @@ void draw() {
     }
     g.endDraw();
   }
+  
+  if(modes2.get(1)){
+    PGraphics g = Layers2.get(1);
+    g.beginDraw();
+    for(int i = 0; i < DPacks.size(); i++){
+      FourChDimmer d = DPacks.get(i);
+       for(int j = 0; j < d.location.length ;j++){
+         
+           d.intensity[j] += map(noise(nDif), 0, 1, -1, 1);
+           nDif+=0.001;
+       }
+    }
+    g.endDraw();
+  }
 
   for (int i = 0; i < modes.size(); i++) {
     if (modes.get(i)) {
