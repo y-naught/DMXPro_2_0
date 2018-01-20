@@ -33,6 +33,7 @@ ArrayList<FiveCh> fvCh;
   ////////////////////////////////////////////////////////////
 
 int dIntensity = 0;
+int[] dimLights = new int[12];
 float angle = 0;
 PrintWriter lightPositions;
 PrintWriter effectOutput;
@@ -41,9 +42,16 @@ PrintWriter effectOutput;
   /*        Declaring variables for managing effects        */
   ////////////////////////////////////////////////////////////
 
+
+//layers2, numEffects2 and modes 2 are for the right portion of the screen
+Boolean window = false;
+Boolean onScreen = false;
 int numEffects = 3;
+int numEffects2 = 1;
 ArrayList<PGraphics> Layers;
+ArrayList<PGraphics> Layers2;
 ArrayList<Boolean> modes;
+ArrayList<Boolean> modes2;
 
 SinGradient sinGrad;
 LinearGradient linGrad;

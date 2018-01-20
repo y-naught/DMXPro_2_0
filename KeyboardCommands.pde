@@ -29,6 +29,9 @@ void keyPressed(){
     }
     
     if(key == 's'){
-        
+        saveLightLocations();
+    }
+    if(key == 'l'){
+       loadLightLocations(); 
     }
 }

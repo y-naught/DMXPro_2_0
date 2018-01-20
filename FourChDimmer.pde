@@ -27,6 +27,7 @@ class FourChDimmer{
   int avg = int((r+g+b) / 3);
   
   return avg;
+   
  }
  
  void display(){

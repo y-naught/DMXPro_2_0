@@ -2,6 +2,39 @@ void controllerChange(int channel, int number, int value) {
   if (number == 48) {
     dIntensity = value * 2;
   }
+  if (number == 49) {
+    FourChDimmer d1 = DPacks.get(0);
+    d1.intensity[0] = value * 2;
+  }
+  if (number == 50) {
+    FourChDimmer d1 = DPacks.get(0);
+    d1.intensity[1] = value * 2;
+  }
+  if (number == 51) {
+    FourChDimmer d1 = DPacks.get(0);
+    d1.intensity[2] = value * 2;
+  }
+  if (number == 52) {
+    FourChDimmer d1 = DPacks.get(0);
+    d1.intensity[3] = value * 2;
+  }
+  if (number == 53) {
+    FourChDimmer d1 = DPacks.get(1);
+    d1.intensity[1] = value * 2;
+  }
+  if (number == 54) {
+    FourChDimmer d1 = DPacks.get(1);
+    d1.intensity[3] = value * 2;
+  }
+  if (number == 55) {
+    FourChDimmer d1 = DPacks.get(2);
+    d1.intensity[0] = value * 2;
+  }
+  if (number == 56) {
+    FourChDimmer d1 = DPacks.get(2);
+    d1.intensity[1] = value * 2;
+  }
+  
 }
 
 void noteOn(Note note){

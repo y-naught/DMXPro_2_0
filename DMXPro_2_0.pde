@@ -52,6 +52,9 @@ void setup() {
   }
 
   println(channel);
+  for(int i = 0; i < dimLights.length; i++){
+    
+  }
 
 
 
@@ -65,6 +68,10 @@ void setup() {
   for (int i = 0; i < numEffects; i++) {
     modes.add(false);
   }
+  modes2 = new ArrayList<Boolean>(numEffects2);
+  for (int i = 0; i < numEffects2; i++) {
+    modes2.add(false);
+  }
 
   for (int i = 0; i < modes.size(); i++) {
     if (i == 0) {
@@ -75,8 +82,12 @@ void setup() {
   }
 
   Layers = new ArrayList<PGraphics>();
+  Layers2 = new ArrayList<PGraphics>();
   for (int i = 0; i < numEffects; i++) {
     Layers.add(createGraphics(500, 500));
+  }
+  for(int i = 0 ; i< numEffects2; i++){
+    Layers2.add(createGraphics(500,500));
   }
 
   sinGrad = new SinGradient();
@@ -90,6 +101,7 @@ void setup() {
 
 void draw() {
   background(0);
+  
   //println(frameRate);
   if (modes.get(0)) {
     PGraphics g = Layers.get(0);
@@ -101,14 +113,26 @@ void draw() {
     g.endDraw();
   }
 
-  if (modes.get(1)) {
+  else if (modes.get(1)) {
     PGraphics g = Layers.get(1);
     sinGrad.update(g);
   }
 
-  if (modes.get(2)) {
+  else if (modes.get(2)) {
     PGraphics g = Layers.get(2);
     linGrad.update(g);
+  }
+  
+  if(modes2.get(0)){
+    PGraphics g = Layers2.get(0);
+    g.beginDraw();
+    for(int i = 0; i < DPacks.size(); i++){
+      FourChDimmer d = DPacks.get(i);
+       for(int j = 0; j < d.location.length ;j++){
+           d.intensity[j] = dimLights[i*4 + j];
+       }
+    }
+    g.endDraw();
   }
 
   for (int i = 0; i < modes.size(); i++) {
@@ -119,4 +143,7 @@ void draw() {
   }
   drawLights();
   runLights();
+  strokeWeight(2);
+  stroke(255);
+  line(500, 0, 500, 500);
 }
