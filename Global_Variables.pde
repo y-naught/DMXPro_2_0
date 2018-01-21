@@ -46,8 +46,8 @@ PrintWriter effectOutput;
 //layers2, numEffects2 and modes 2 are for the right portion of the screen
 Boolean window = false;
 Boolean onScreen = false;
-int numEffects = 3;
-int numEffects2 = 2;
+int numEffects = 4;
+int numEffects2 = 3;
 ArrayList<PGraphics> Layers;
 ArrayList<PGraphics> Layers2;
 ArrayList<Boolean> modes;
@@ -57,3 +57,4 @@ float nDif = 0.5;
 
 SinGradient sinGrad;
 LinearGradient linGrad;
+RotatingBar bar;

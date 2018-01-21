@@ -92,6 +92,7 @@ void setup() {
 
   sinGrad = new SinGradient();
   linGrad = new LinearGradient();
+  bar = new RotatingBar();
 }
 
 ////////////////////////////////////////////////////////////
@@ -123,13 +124,20 @@ void draw() {
     linGrad.update(g);
   }
   
+  else if ( modes.get(3)){
+    PGraphics g = Layers.get(3);
+    //g.loadPixels();
+    bar.update(g);
+    //g.updatePixels();
+  }
+  
   if(modes2.get(0)){
     PGraphics g = Layers2.get(0);
     g.beginDraw();
     for(int i = 0; i < DPacks.size(); i++){
       FourChDimmer d = DPacks.get(i);
        for(int j = 0; j < d.location.length ;j++){
-           d.intensity[j] = dimLights[i*4 + j];
+           //d.intensity[j] = dimLights[i*4 + j];
        }
     }
     g.endDraw();
@@ -142,10 +150,30 @@ void draw() {
       FourChDimmer d = DPacks.get(i);
        for(int j = 0; j < d.location.length ;j++){
          
-           d.intensity[j] += map(noise(nDif), 0, 1, -1, 1);
+           d.intensity[j] += map(noise(nDif + i * j), 0, 0.5, -1, 1);
+           
            nDif+=0.001;
-       }
-    }
+           if(d.intensity[j] < 0){
+              d.intensity[j] = 0;
+           }
+           else if(d.intensity[j] > 255){
+              d.intensity[j] = 255;
+           }
+        }
+     }
+    g.endDraw();
+  }
+  
+  if(modes2.get(2)){
+    PGraphics g = Layers2.get(1);
+    g.beginDraw();
+    for(int i = 0; i < DPacks.size(); i++){
+      FourChDimmer d = DPacks.get(i);
+       for(int j = 0; j < d.location.length ; j++){
+           d.intensity[j] = int(map(sin(angle + (j + i * j)), -1, 1, 0, 255));
+           angle += PI / 512;
+        }
+     }
     g.endDraw();
   }
 
