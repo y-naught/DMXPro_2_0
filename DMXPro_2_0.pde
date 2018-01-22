@@ -93,6 +93,8 @@ void setup() {
   sinGrad = new SinGradient();
   linGrad = new LinearGradient();
   bar = new RotatingBar();
+  noise = new PerlinNoise();
+  pShower = new Shower(10, 5);
 }
 
 ////////////////////////////////////////////////////////////
@@ -110,7 +112,7 @@ void draw() {
     angle += PI / map(mouseX, 0, width/2, 100, 10);
     g.beginDraw();
     //g.background(temp);
-    g.background(dIntensity);
+    g.background(red, green, blue);
     g.endDraw();
   }
 
@@ -127,8 +129,20 @@ void draw() {
   else if ( modes.get(3)){
     PGraphics g = Layers.get(3);
     //g.loadPixels();
-    bar.update(g);
+    bar.update(g, color(red, green, blue), color(red2, green2, blue2));
     //g.updatePixels();
+  }
+  
+  else if ( modes.get(4)){
+    PGraphics g = Layers.get(4);
+    noise.update(g, red, green, blue);
+  }
+  else if ( modes.get(5)){
+    PGraphics g = Layers.get(5);
+    g.beginDraw();
+    g.background(0);
+    g.endDraw();
+    pShower.run(g, g.width, color(red,green,blue));
   }
   
   if(modes2.get(0)){
@@ -183,6 +197,7 @@ void draw() {
       image(tmp, 0, 0);
     }
   }
+  
   drawLights();
   runLights();
   strokeWeight(2);

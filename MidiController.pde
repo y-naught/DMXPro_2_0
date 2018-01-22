@@ -1,38 +1,68 @@
 void controllerChange(int channel, int number, int value) {
   if (number == 48) {
-    dIntensity = value * 2;
+    if(dimControl){
+      
+    }else if(colSwitch){
+        red = value * 2;
+    }else{
+        red2 = value * 2;
+    }
   }
   if (number == 49) {
-    FourChDimmer d1 = DPacks.get(0);
-    d1.intensity[0] = value * 2;
+    if(dimControl){
+      FourChDimmer d1 = DPacks.get(0);
+      d1.intensity[0] = value * 2;
+    }else if(colSwitch){
+      green = value * 2;
+    }else{
+      green2 = value * 2;
+    }
   }
   if (number == 50) {
-    FourChDimmer d1 = DPacks.get(0);
-    d1.intensity[1] = value * 2;
+    if(dimControl){
+      FourChDimmer d1 = DPacks.get(0);
+      d1.intensity[1] = value * 2;
+    }else if(colSwitch){
+      blue = value * 2; 
+    }else{
+      blue2 = value * 2;
+    }
   }
   if (number == 51) {
-    FourChDimmer d1 = DPacks.get(0);
-    d1.intensity[2] = value * 2;
+    if(dimControl){
+      FourChDimmer d1 = DPacks.get(0);
+      d1.intensity[2] = value * 2;
+    }
   }
   if (number == 52) {
-    FourChDimmer d1 = DPacks.get(0);
-    d1.intensity[3] = value * 2;
+    if(dimControl){
+      FourChDimmer d1 = DPacks.get(0);
+      d1.intensity[3] = value * 2;
+    }
   }
   if (number == 53) {
-    FourChDimmer d1 = DPacks.get(1);
-    d1.intensity[1] = value * 2;
+    if(dimControl){
+      FourChDimmer d1 = DPacks.get(1);
+      d1.intensity[1] = value * 2;
+    }
   }
   if (number == 54) {
-    FourChDimmer d1 = DPacks.get(1);
-    d1.intensity[3] = value * 2;
+    if(dimControl){
+      FourChDimmer d1 = DPacks.get(1);
+      d1.intensity[3] = value * 2;
+    }
   }
   if (number == 55) {
-    FourChDimmer d1 = DPacks.get(2);
-    d1.intensity[0] = value * 2;
+    if(dimControl){
+      FourChDimmer d1 = DPacks.get(2);
+      d1.intensity[0] = value * 2;
+    }
   }
   if (number == 56) {
-    FourChDimmer d1 = DPacks.get(2);
-    d1.intensity[1] = value * 2;
+    if(dimControl){
+      FourChDimmer d1 = DPacks.get(2);
+      d1.intensity[1] = value * 2;
+    }
   }
   
 }
@@ -99,7 +129,37 @@ void noteOn(Note note){
       } 
     }
   }
+  if(note.pitch() == 60){
+    for(int i = 0; i < modes.size(); i++){
+      if(i == 4){
+        Boolean m = modes.get(i);
+        m = true;
+        modes.set(i, m);
+        bus.sendNoteOn(0, 60, 127);
+      }else{
+        Boolean m = modes.get(i);
+        m = false; 
+        modes.set(i, m);
+        bus.sendNoteOn(0, 60, 0);
+      } 
+    }
+  }
   
+  if(note.pitch() == 61){
+    for(int i = 0; i < modes.size(); i++){
+      if(i == 5){
+        Boolean m = modes.get(i);
+        m = true;
+        modes.set(i, m);
+        bus.sendNoteOn(0, 61, 127);
+      }else{
+        Boolean m = modes.get(i);
+        m = false; 
+        modes.set(i, m);
+        bus.sendNoteOn(0, 61, 0);
+      } 
+    }
+  }
   
   //Switching between effects on the Dimmer Pack Window
   
@@ -148,4 +208,20 @@ void noteOn(Note note){
         }
      }
   }
+  
+  if(note.pitch() == 71){
+     if(dimControl){
+       dimControl = false; 
+     }else{
+       dimControl = true;
+     }
+  }
+  if(note.pitch() == 98){
+    if(colSwitch){
+       colSwitch = false; 
+    }else{
+       colSwitch = true;
+    }
+  }
+  
 }

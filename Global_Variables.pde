@@ -46,15 +46,27 @@ PrintWriter effectOutput;
 //layers2, numEffects2 and modes 2 are for the right portion of the screen
 Boolean window = false;
 Boolean onScreen = false;
-int numEffects = 4;
+Boolean dimControl = false;
+Boolean colSwitch = true;
+int numEffects = 6;
 int numEffects2 = 3;
 ArrayList<PGraphics> Layers;
 ArrayList<PGraphics> Layers2;
 ArrayList<Boolean> modes;
 ArrayList<Boolean> modes2;
 
+int red = 0;
+int green = 0;
+int blue = 0;
+
+int red2 = 0;
+int green2 = 0;
+int blue2 = 0;
+
 float nDif = 0.5;
 
 SinGradient sinGrad;
 LinearGradient linGrad;
 RotatingBar bar;
+PerlinNoise noise;
+Shower pShower;
