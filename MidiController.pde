@@ -1,6 +1,14 @@
 void controllerChange(int channel, int number, int value) {
   if (number == 48) {
     if(dimControl){
+      if(modes2.get(0)){
+         for(int i = 0; i < DPacks.size(); i++){
+            FourChDimmer d = DPacks.get(i);
+            for(int j = 0; j < d.location.length; j++){
+               d.intensity[j] = value * 2;
+            }
+         }
+      }
       
     }else if(colSwitch){
         red = value * 2;
@@ -10,8 +18,10 @@ void controllerChange(int channel, int number, int value) {
   }
   if (number == 49) {
     if(dimControl){
-      FourChDimmer d1 = DPacks.get(0);
-      d1.intensity[0] = value * 2;
+      if(modes2.get(0)){
+        FourChDimmer d1 = DPacks.get(0);
+        d1.intensity[0] = value * 2;
+      }
     }else if(colSwitch){
       green = value * 2;
     }else{
@@ -20,8 +30,10 @@ void controllerChange(int channel, int number, int value) {
   }
   if (number == 50) {
     if(dimControl){
+      if(modes2.get(0)){
       FourChDimmer d1 = DPacks.get(0);
       d1.intensity[1] = value * 2;
+      }
     }else if(colSwitch){
       blue = value * 2; 
     }else{
@@ -31,8 +43,10 @@ void controllerChange(int channel, int number, int value) {
   }
   if (number == 51) {
     if(dimControl){
-      FourChDimmer d1 = DPacks.get(0);
-      d1.intensity[2] = value * 2;
+      if(modes2.get(0)){
+        FourChDimmer d1 = DPacks.get(0);
+        d1.intensity[2] = value * 2;
+      }
     }else{
       if(modes.get(1)){
        globalSpeed = map(value, 0, 127, 0, PI/8); 
@@ -54,8 +68,10 @@ void controllerChange(int channel, int number, int value) {
   }
   if (number == 52) {
     if(dimControl){
-      FourChDimmer d1 = DPacks.get(0);
-      d1.intensity[3] = value * 2;
+      if(modes2.get(0)){
+        FourChDimmer d1 = DPacks.get(0);
+        d1.intensity[3] = value * 2;
+      }
     }else{
       if(modes.get(2)){
        globalRotation = map(value, 0, 127, 0, TWO_PI); 
@@ -70,8 +86,10 @@ void controllerChange(int channel, int number, int value) {
   }
   if (number == 53) {
     if(dimControl){
-      FourChDimmer d1 = DPacks.get(1);
-      d1.intensity[1] = value * 2;
+      if(modes2.get(0)){
+        FourChDimmer d1 = DPacks.get(1);
+        d1.intensity[1] = value * 2;
+      }
     }else{
       if(modes.get(2)){
          globalDensity = map(value, 0, 127, 10, 200); 
@@ -83,20 +101,26 @@ void controllerChange(int channel, int number, int value) {
   }
   if (number == 54) {
     if(dimControl){
-      FourChDimmer d1 = DPacks.get(1);
-      d1.intensity[3] = value * 2;
+      if(modes2.get(0)){
+        FourChDimmer d1 = DPacks.get(1);
+        d1.intensity[3] = value * 2;
+      }
     }
   }
   if (number == 55) {
     if(dimControl){
-      FourChDimmer d1 = DPacks.get(2);
-      d1.intensity[0] = value * 2;
+      if(modes2.get(0)){
+        FourChDimmer d1 = DPacks.get(2);
+        d1.intensity[0] = value * 2;
+      }
     }
   }
   if (number == 56) {
     if(dimControl){
-      FourChDimmer d1 = DPacks.get(2);
-      d1.intensity[1] = value * 2;
+      if(modes2.get(0)){
+        FourChDimmer d1 = DPacks.get(2);
+        d1.intensity[1] = value * 2;
+      }
     }else{
      alpha = value * 2; 
     }
@@ -232,6 +256,7 @@ void noteOn(Note note){
           bus.sendNoteOn(0, 40, 0);
         }
      }
+     window = false;
   }
   if(note.pitch() == 41){
      for(int i = 0; i < modes2.size(); i++){
@@ -247,6 +272,7 @@ void noteOn(Note note){
           bus.sendNoteOn(0, 41, 0);
         }
      }
+     window = false;
   }
   if(note.pitch() == 42){
      for(int i = 0; i < modes2.size(); i++){
@@ -262,7 +288,25 @@ void noteOn(Note note){
           bus.sendNoteOn(0, 42, 0);
         }
      }
+     window = false;
   }
+  if(note.pitch() == 43){
+     for(int i = 0; i < modes2.size(); i++){
+        if(i == 3){
+          Boolean m = modes2.get(i);
+          m = true;
+          modes2.set(i, m);
+          bus.sendNoteOn(0, 43, 127);
+        }else{
+          Boolean m = modes2.get(i);
+          m = false; 
+          modes2.set(i, m);
+          bus.sendNoteOn(0, 43, 0);
+        }
+     }
+     window = true;
+  }
+  
   
   if(note.pitch() == 7){
      if(mode < 2){

@@ -44,12 +44,12 @@ PrintWriter effectOutput;
 
 
 //layers2, numEffects2 and modes 2 are for the right portion of the screen
-Boolean window = false;
+Boolean window = true;
 Boolean onScreen = false;
 Boolean dimControl = false;
 Boolean colSwitch = true;
 int numEffects = 6;
-int numEffects2 = 3;
+int numEffects2 = 4;
 ArrayList<PGraphics> Layers;
 ArrayList<PGraphics> Layers2;
 ArrayList<Boolean> modes;
@@ -79,6 +79,7 @@ int globalWidth = 300;
 int mode = 0;
 float globalRotation = 0;
 float globalDensity = 10;
+float globalAngle = 0;
 
 SinGradient sinGrad;
 LinearGradient linGrad;

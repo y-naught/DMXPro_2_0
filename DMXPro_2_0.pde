@@ -88,7 +88,7 @@ void setup() {
   for (int i = 0; i < numEffects; i++) {
     Layers.add(createGraphics(500, 500));
   }
-  for(int i = 0 ; i< numEffects2; i++){
+  for(int i = 0 ; i < numEffects2; i++){
     Layers2.add(createGraphics(500,500));
   }
 
@@ -117,6 +117,7 @@ void draw() {
     }
   }
   
+  //updates the alpha values while in transition between effects
   if(inTransition){
           alpha = int(map(tFrame - frameCount, 0, tLength, 255, 0)); 
        }else{
@@ -202,7 +203,7 @@ void draw() {
   }
   
   if(modes2.get(2)){
-    PGraphics g = Layers2.get(1);
+    PGraphics g = Layers2.get(2);
     g.beginDraw();
     for(int i = 0; i < DPacks.size(); i++){
       FourChDimmer d = DPacks.get(i);
@@ -212,6 +213,17 @@ void draw() {
         }
      }
     g.endDraw();
+  }
+  
+  if(modes2.get(3)){
+      PGraphics g = Layers2.get(3);
+      g.beginDraw();
+      g.rectMode(CENTER);
+      g.translate(g.width/2, g.height/2);
+      g.rotate(globalAngle);
+      g.rect(0,0,globalWidth, g.height + 200);
+      globalAngle += globalSpeed;
+      g.endDraw();
   }
 
   for (int i = 0; i < modes.size(); i++) {
@@ -223,6 +235,14 @@ void draw() {
   }
   
   image(bufferImage, 0, 0);
+  if(window){
+    for(int i = 0; i < modes2.size(); i++){
+      if(modes2.get(i)){
+         PGraphics g = Layers2.get(i);
+         image(g, 500, 0);
+      } 
+    }
+  }
   
   drawLights();
   runLights();

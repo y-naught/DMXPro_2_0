@@ -10,19 +10,23 @@ void runLights() {
       
       //g.loadPixels();
       //Dimmer Pack Outputs
-      if(onScreen == true){
-      for (int i = 0; i < DPacks.size(); i++) {
-        FourChDimmer d = DPacks.get(i);
-        for (int k = 0; k < d.channel.length; k++) {
-          dmxOutput.set(d.channel[k], d.sampleColor(bufferImage, k));
+      if(window == true){
+      for(int l = 0; l < modes2.size(); l++){
+        if(modes2.get(l)){
+          PGraphics g2 = Layers2.get(l);
+          for (int i = 0; i < DPacks.size(); i++) {
+            FourChDimmer d = DPacks.get(i);
+            for(int k = 0; k < d.channel.length; k++) {
+              dmxOutput.set(d.channel[k], d.sampleColor(g2, k));
+            }
+          }
         }
       }
-         
       }else{
         for(int i = 0; i < DPacks.size(); i++){
            FourChDimmer d = DPacks.get(i);
            for(int k = 0; k < d.intensity.length; k++){
-              dmxOutput.set(d.channel[k], d.intensity[k]); 
+              dmxOutput.set(d.channel[k], d.intensity[k]);
            }
         }
       }

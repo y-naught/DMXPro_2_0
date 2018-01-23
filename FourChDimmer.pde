@@ -18,7 +18,7 @@ class FourChDimmer{
   }
  
  int sampleColor(PGraphics img, int id){
-  int col = img.pixels[int(location[id].x) +int(location[id].y) * img.width];
+  int col = img.pixels[int(location[id].x) + int(location[id].y) * img.width];
   
   float r = col >> 16 & 0xFF;
   float g = col >> 8 & 0xFF;
