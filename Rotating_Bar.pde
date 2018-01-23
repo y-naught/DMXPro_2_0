@@ -7,13 +7,17 @@ class RotatingBar{
     
   }
   
-  void update(PGraphics g, color tmp1, color tmp2){
+  void update(PGraphics g, color tmp1, color tmp2, float tmpSp, int tmpWid){
     PImage temp = createImage(g.width, g.height, RGB);
+     speed = tmpSp;
+     
      g.beginDraw();
      g.background(0);
      temp.loadPixels();
+     
      color c1 = tmp1;
      color c2 = tmp2;
+     
      for(int i = 0; i < g.width; i++){
        for(int j = 0; j < g.height; j++){
            if(i < g.width/2){
@@ -23,10 +27,10 @@ class RotatingBar{
            }
        }
      }
+     
     temp.updatePixels();
-   
     g.imageMode(CENTER);
-    temp.resize(300,700);
+    temp.resize(tmpWid,700);
     g.translate(g.width/2, g.height/2);
     g.rotate(ang);
     g.image(temp, 0, 0);

@@ -65,6 +65,12 @@ int blue2 = 0;
 
 float nDif = 0.5;
 
+float globalSpeed = 0;
+float globalSize = 10;
+int globalNumPart = 10;
+int globalWidth = 300;
+int mode = 0;
+
 SinGradient sinGrad;
 LinearGradient linGrad;
 RotatingBar bar;

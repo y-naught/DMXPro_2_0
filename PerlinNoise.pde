@@ -22,9 +22,10 @@ class PerlinNoise{
     curY = 0.0;
   }
   
-  void update(PGraphics g, int r1, int g1, int b1){
+  void update(PGraphics g, int r1, int g1, int b1,float mvx, int mdTmp){
     g.beginDraw();
     g.loadPixels();
+    noiseMode = mdTmp;
     int tmp = 0;
     for(int x = 0; x < g.width; x++){
        offX += incrementX;
@@ -65,9 +66,10 @@ class PerlinNoise{
     g.updatePixels();
     g.endDraw();
     
-    curX += moveX;
+    curX += 0; //moveX;
     offX = curX;
-    curY += moveY;
+    curY += mvx;
+    //curY += moveY;
     offY = curY;
   }
   

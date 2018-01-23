@@ -27,23 +27,46 @@ void controllerChange(int channel, int number, int value) {
     }else{
       blue2 = value * 2;
     }
+    
   }
   if (number == 51) {
     if(dimControl){
       FourChDimmer d1 = DPacks.get(0);
       d1.intensity[2] = value * 2;
+    }else{
+      if(modes.get(3)){
+       globalSpeed = map(value, 0, 127, 0, PI/12); 
+     }
+     if(modes.get(4)){
+       globalSpeed = map(value, 0, 127, -1, 1); 
+     }
+    if(modes.get(5)){
+       globalSpeed = map(value, 0, 127, 0, 15);
+      }
+     
     }
   }
   if (number == 52) {
     if(dimControl){
       FourChDimmer d1 = DPacks.get(0);
       d1.intensity[3] = value * 2;
+    }else{
+      if(modes.get(3)){
+       globalWidth = int(map(value, 0, 127, 0, 700)); 
+      }
+      if(modes.get(5)){
+        globalNumPart = int(map(value, 0, 127, 0, 15));
+      }
     }
   }
   if (number == 53) {
     if(dimControl){
       FourChDimmer d1 = DPacks.get(1);
       d1.intensity[1] = value * 2;
+    }else{
+    if(modes.get(5)){
+       globalSize = map(value, 0, 127, 0, 25);
+    }
     }
   }
   if (number == 54) {
@@ -209,6 +232,13 @@ void noteOn(Note note){
      }
   }
   
+  if(note.pitch() == 7){
+     if(mode < 2){
+       mode++;
+     }
+     if(mode >=2){mode=0;}
+  }
+  
   if(note.pitch() == 71){
      if(dimControl){
        dimControl = false; 
@@ -223,5 +253,4 @@ void noteOn(Note note){
        colSwitch = true;
     }
   }
-  
 }

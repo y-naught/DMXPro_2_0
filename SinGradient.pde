@@ -12,11 +12,12 @@ class SinGradient{
      
      g.loadPixels();
      for(int i = 0; i < g.width; i++){
-     for(int j = 0; j < g.height; j++){
-     color c = lerpColor(c1, c2, map(i, 0, g.width, 0, 1.0));
-     g.pixels[i + j * g.width] = c;
-   }
-  }
+       for(int j = 0; j < g.height; j++){
+         color c = lerpColor(c1, c2, map(i, 0, g.width, 0, 1.0));
+         g.pixels[i + j * g.width] = c;
+       }
+     }
+     
      g.updatePixels();
      g.endDraw();  
      

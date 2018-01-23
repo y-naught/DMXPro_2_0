@@ -115,7 +115,7 @@ void draw() {
     g.background(red, green, blue);
     g.endDraw();
   }
-
+  
   else if (modes.get(1)) {
     PGraphics g = Layers.get(1);
     sinGrad.update(g);
@@ -129,20 +129,20 @@ void draw() {
   else if ( modes.get(3)){
     PGraphics g = Layers.get(3);
     //g.loadPixels();
-    bar.update(g, color(red, green, blue), color(red2, green2, blue2));
+    bar.update(g, color(red, green, blue), color(red2, green2, blue2), globalSpeed, globalWidth);
     //g.updatePixels();
   }
   
   else if ( modes.get(4)){
     PGraphics g = Layers.get(4);
-    noise.update(g, red, green, blue);
+    noise.update(g, red, green, blue, globalSpeed, mode);
   }
-  else if ( modes.get(5)){
+  else if (modes.get(5)){
     PGraphics g = Layers.get(5);
     g.beginDraw();
     g.background(0);
     g.endDraw();
-    pShower.run(g, g.width, color(red,green,blue));
+    pShower.run(g, g.width, color(red,green,blue), globalSpeed, globalSize, globalNumPart);
   }
   
   if(modes2.get(0)){
@@ -151,7 +151,7 @@ void draw() {
     for(int i = 0; i < DPacks.size(); i++){
       FourChDimmer d = DPacks.get(i);
        for(int j = 0; j < d.location.length ;j++){
-           //d.intensity[j] = dimLights[i*4 + j];
+         
        }
     }
     g.endDraw();

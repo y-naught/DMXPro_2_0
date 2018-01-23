@@ -8,16 +8,17 @@ class LinearGradient{
   }
   
   void update(PGraphics g){
+    
     g.beginDraw();
     g.background(0);
     g.loadPixels();
+    
     for(int i = 0; i < g.width; i++){
       for(int j = 0; j < g.height; j++){
         g.pixels[i + j * g.width] = lerpColor(c1,c2, map(sin(i * PI / map(mouseY, 0, g.height, 5, 500)+frameCount * PI / 4), -1, 1,0,1));
       }
-     }
+    }
      
-    //g.updatePixels();
     g.updatePixels();
     g.endDraw();
     
