@@ -2,13 +2,19 @@ void runLights() {
   for (int j = 0; j < modes.size(); j++) {
     if (modes.get(j)) {
       PGraphics g = Layers.get(j);
+      
+      bufferImage.beginDraw();
+      bufferImage.tint(255,255,255, alpha);
+      bufferImage.image(g,0,0);
+      bufferImage.endDraw();
+      
       //g.loadPixels();
       //Dimmer Pack Outputs
       if(onScreen == true){
       for (int i = 0; i < DPacks.size(); i++) {
         FourChDimmer d = DPacks.get(i);
         for (int k = 0; k < d.channel.length; k++) {
-          dmxOutput.set(d.channel[k], d.sampleColor(g, k));
+          dmxOutput.set(d.channel[k], d.sampleColor(bufferImage, k));
         }
       }
          
@@ -25,7 +31,7 @@ void runLights() {
       for(int i = 0; i < colorRails.size(); i++){
         ColorRail cr = colorRails.get(i);
         
-        int[] tmpCols = cr.sampleColor(g);
+        int[] tmpCols = cr.sampleColor(bufferImage);
         int[] cOrdered = new int[24];
         
         for(int l = 0; l < cOrdered.length; l+=3){
@@ -47,7 +53,7 @@ void runLights() {
       for(int i = 0; i < thCh.size(); i++){
         
         ThreeCh tc = thCh.get(i);
-        int tmp = tc.sampleColor(g);
+        int tmp = tc.sampleColor(bufferImage);
         
         dmxOutput.set(tc.channel[0], tmp >> 16 & 0xFF);
         dmxOutput.set(tc.channel[1], tmp  >> 8 & 0xFF);

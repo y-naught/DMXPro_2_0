@@ -17,6 +17,8 @@ void setup() {
   nextLocation = new PVector(50, 50);
 
   DPacks = new ArrayList<FourChDimmer>();
+  
+  bufferImage = createGraphics(500, 500);
 
   for (int i = 0; i < numDPacks; i++) {
     PVector[] temp = new PVector[4];
@@ -103,6 +105,27 @@ void setup() {
 
 
 void draw() {
+  
+  //Auto fade transitions between effects
+  for(int i = 0; i < modes.size(); i++){
+    if(modes.get(i)){
+       if(i != lastMode){
+          tFrame = frameCount + tLength;
+          lastMode = i;
+          inTransition = true;
+       }
+    }
+  }
+  
+  if(inTransition){
+          alpha = int(map(tFrame - frameCount, 0, tLength, 255, 0)); 
+       }else{
+          //alpha = 255; 
+         }
+       if(tFrame - frameCount == 0){
+           inTransition = false;
+         }
+  
   background(0);
   
   //println(frameRate);
@@ -118,12 +141,12 @@ void draw() {
   
   else if (modes.get(1)) {
     PGraphics g = Layers.get(1);
-    sinGrad.update(g);
+    sinGrad.update(g,color(red, green, blue), color(red2, green2, blue2), globalSpeed);
   }
 
   else if (modes.get(2)) {
     PGraphics g = Layers.get(2);
-    linGrad.update(g);
+    linGrad.update(g, globalSpeed, globalRotation, color(red, green, blue), color(red2, green2, blue2), globalDensity);
   }
   
   else if ( modes.get(3)){
@@ -142,7 +165,7 @@ void draw() {
     g.beginDraw();
     g.background(0);
     g.endDraw();
-    pShower.run(g, g.width, color(red,green,blue), globalSpeed, globalSize, globalNumPart);
+    pShower.run(g, g.width, color(red,green,blue), globalSpeed, globalSize, globalNumPart, color(red2, green2, blue2));
   }
   
   if(modes2.get(0)){
@@ -193,10 +216,13 @@ void draw() {
 
   for (int i = 0; i < modes.size(); i++) {
     if (modes.get(i)) {
-      PGraphics tmp = Layers.get(i);
-      image(tmp, 0, 0);
+      //PGraphics tmp = Layers.get(i);
+      //image(tmp, 0, 0);
+      
     }
   }
+  
+  image(bufferImage, 0, 0);
   
   drawLights();
   runLights();

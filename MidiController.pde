@@ -34,6 +34,12 @@ void controllerChange(int channel, int number, int value) {
       FourChDimmer d1 = DPacks.get(0);
       d1.intensity[2] = value * 2;
     }else{
+      if(modes.get(1)){
+       globalSpeed = map(value, 0, 127, 0, PI/8); 
+     }
+     if(modes.get(2)){
+       globalSpeed = map(value, 0, 127, 0, PI/ 2); 
+     }
       if(modes.get(3)){
        globalSpeed = map(value, 0, 127, 0, PI/12); 
      }
@@ -51,6 +57,9 @@ void controllerChange(int channel, int number, int value) {
       FourChDimmer d1 = DPacks.get(0);
       d1.intensity[3] = value * 2;
     }else{
+      if(modes.get(2)){
+       globalRotation = map(value, 0, 127, 0, TWO_PI); 
+      }
       if(modes.get(3)){
        globalWidth = int(map(value, 0, 127, 0, 700)); 
       }
@@ -64,6 +73,9 @@ void controllerChange(int channel, int number, int value) {
       FourChDimmer d1 = DPacks.get(1);
       d1.intensity[1] = value * 2;
     }else{
+      if(modes.get(2)){
+         globalDensity = map(value, 0, 127, 10, 200); 
+      }
     if(modes.get(5)){
        globalSize = map(value, 0, 127, 0, 25);
     }
@@ -85,6 +97,8 @@ void controllerChange(int channel, int number, int value) {
     if(dimControl){
       FourChDimmer d1 = DPacks.get(2);
       d1.intensity[1] = value * 2;
+    }else{
+     alpha = value * 2; 
     }
   }
   
@@ -106,6 +120,9 @@ void noteOn(Note note){
       bus.sendNoteOn(0, 56, 0);
       } 
     }
+    if(lastMode != note.pitch()){
+      alpha = 0;
+    }
   }
   if(note.pitch() == 57){
     for(int i = 0; i < modes.size(); i++){
@@ -120,6 +137,9 @@ void noteOn(Note note){
         modes.set(i, m);
         bus.sendNoteOn(0, 57, 0);
       } 
+    }
+    if(lastMode != note.pitch()){
+      alpha = 0;
     }
   }
   if(note.pitch() == 58){
@@ -136,6 +156,9 @@ void noteOn(Note note){
         bus.sendNoteOn(0, 58, 0);
       } 
     }
+    if(lastMode != note.pitch()){
+      alpha = 0;
+    }
   }
   if(note.pitch() == 59){
     for(int i = 0; i < modes.size(); i++){
@@ -150,6 +173,9 @@ void noteOn(Note note){
         modes.set(i, m);
         bus.sendNoteOn(0, 59, 0);
       } 
+    }
+    if(lastMode != note.pitch()){
+      alpha = 0;
     }
   }
   if(note.pitch() == 60){
@@ -166,6 +192,9 @@ void noteOn(Note note){
         bus.sendNoteOn(0, 60, 0);
       } 
     }
+    if(lastMode != note.pitch()){
+      alpha = 0;
+    }
   }
   
   if(note.pitch() == 61){
@@ -181,6 +210,9 @@ void noteOn(Note note){
         modes.set(i, m);
         bus.sendNoteOn(0, 61, 0);
       } 
+    }
+    if(lastMode != note.pitch()){
+      alpha = 0;
     }
   }
   

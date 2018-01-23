@@ -55,9 +55,16 @@ ArrayList<PGraphics> Layers2;
 ArrayList<Boolean> modes;
 ArrayList<Boolean> modes2;
 
+PGraphics bufferImage;
+Boolean inTransition = false;
+int lastMode = 0;
+int tLength = 20;
+int tFrame = 0;
+
 int red = 0;
 int green = 0;
 int blue = 0;
+int alpha = 20;
 
 int red2 = 0;
 int green2 = 0;
@@ -70,6 +77,8 @@ float globalSize = 10;
 int globalNumPart = 10;
 int globalWidth = 300;
 int mode = 0;
+float globalRotation = 0;
+float globalDensity = 10;
 
 SinGradient sinGrad;
 LinearGradient linGrad;

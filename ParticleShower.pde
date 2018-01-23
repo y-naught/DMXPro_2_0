@@ -5,6 +5,7 @@ class Shower{
     int perFrame;
     float sz;
     int col;
+    int bCol;
     Boolean colSw;
     float speed = 10;
     
@@ -15,8 +16,9 @@ class Shower{
         colSw = true;
     }
     
-    void run(PGraphics g, int wid, int cTemp, float tempSp, float si, int numPart){
+    void run(PGraphics g, int wid, int cTemp, float tempSp, float si, int numPart, int cTemp2){
         col = cTemp;
+        bCol = cTemp2;
         speed = tempSp;
         perFrame = numPart;
         sz = si;
@@ -24,17 +26,18 @@ class Shower{
           particles.add(new Particle(sz, wid)); 
       }
       
+      g.beginDraw();
+      g.background(bCol);
       for(int i = 0; i < particles.size(); i++){
           Particle p = particles.get(i);
           if(p.isDead()){
              particles.remove(i);
           }else{
-             g.beginDraw();
              p.update(speed, colSw, col, int(sz));
              p.display(g);
-             g.endDraw();
           }
        }
+       g.endDraw();
     }
 }
 
@@ -89,13 +92,14 @@ class Particle{
    
    void display(PGraphics gTemp){
       //gTemp.beginDraw();
+      gTemp.noStroke();
       gTemp.fill(colorPP);
       gTemp.ellipse(location.x, location.y, sz, sz);
       //gTemp.endDraw();
    }
    
    boolean isDead(){
-     if(frameCount - startFrame > 1000){
+     if(frameCount - startFrame > 500){
        return true; 
      }else if(location.y > height){
        return true; 
