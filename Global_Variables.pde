@@ -37,6 +37,7 @@ int[] dimLights = new int[12];
 float angle = 0;
 PrintWriter lightPositions;
 PrintWriter effectOutput;
+int numSavedFiles = 2;
 
   ////////////////////////////////////////////////////////////
   /*        Declaring variables for managing effects        */

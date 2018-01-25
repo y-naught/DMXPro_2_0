@@ -134,6 +134,8 @@ void draw() {
       
       int colTmp1 = lerpColor(lerpCol1, lerpCol3, colLerpFactor);
       int colTmp2 = lerpColor(lerpCol2, lerpCol4, colLerpFactor);
+      int colTmp3 = lerpColor(lerpCol3, lerpCol1, colLerpFactor);
+      int colTmp4 = lerpColor(lerpCol4, lerpCol2, colLerpFactor);
       
       int rTmp1 = colTmp1 >> 16 & 0xFF;
       int gTmp1 = colTmp1 >> 8 & 0xFF;
@@ -141,6 +143,12 @@ void draw() {
       int rTmp2 = colTmp2 >> 16 & 0xFF;
       int gTmp2 = colTmp2 >> 8 & 0xFF;
       int bTmp2 = colTmp2 & 0xFF;
+      int rTmp3 = colTmp3 >> 16 & 0xFF;
+      int gTmp3 = colTmp3 >> 8 & 0xFF;
+      int bTmp3 = colTmp3 & 0xFF;
+      int rTmp4 = colTmp4 >> 16 & 0xFF;
+      int gTmp4 = colTmp4 >> 8 & 0xFF;
+      int bTmp4 = colTmp4 & 0xFF;
       
       red = rTmp1;
       green = gTmp1;
@@ -148,6 +156,12 @@ void draw() {
       red2 = rTmp2;
       green2 = gTmp2;
       blue2 = bTmp2;
+      red3 = rTmp3;
+      green3 = gTmp3;
+      blue3 = bTmp3;
+      red4 = rTmp4;
+      green4 = gTmp4;
+      blue4 = bTmp4;
       
       if(colFrame - frameCount == 0){
           inColTransition = false; 

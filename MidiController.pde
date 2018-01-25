@@ -375,6 +375,15 @@ void noteOn(Note note){
      if(mode >=2){mode=0;}
   }
   
+  if(note.pitch() == 8){
+     loadEffectsFile(0);
+     alpha = 0;
+  }
+  if(note.pitch() == 9){
+     loadEffectsFile(1);
+     alpha = 0;
+  }
+  
   if(note.pitch() == 69){
      if(!colCue){
         colCue = true; 
@@ -402,7 +411,17 @@ void noteOn(Note note){
      }
   }
   
+  if(note.pitch() == 84){
+    saveEffectsFile(numSavedFiles);
+  }
+  
   if(note.pitch() == 89){
+    
+    DGroup1 = 0;
+    DGroup2 = 0;
+    DGroup3 = 0;
+    DGroup4 = 0;
+    
      for(int i = 0; i < DPacks.size(); i++){
         FourChDimmer d = DPacks.get(i);
         for(int j = 0; j < d.intensity.length; j++){
