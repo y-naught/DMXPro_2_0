@@ -19,6 +19,8 @@ void controllerChange(int channel, int number, int value) {
     }else if(!colSwitch && colCue){
         red4 = value * 2; 
     }
+    
+    midiValues[0] = value;
   }
   if (number == 49) {
     if(dimControl){
@@ -43,6 +45,7 @@ void controllerChange(int channel, int number, int value) {
     }else if(!colSwitch && colCue){
       green4 = value * 2; 
     }
+    midiValues[1] = value;
   }
   if (number == 50) {
     if(dimControl){
@@ -63,7 +66,7 @@ void controllerChange(int channel, int number, int value) {
     }else if(!colSwitch && colCue){
       blue4 = value * 2; 
     }
-    
+    midiValues[2] = value;
   }
   if (number == 51) {
     if(dimControl){
@@ -91,6 +94,7 @@ void controllerChange(int channel, int number, int value) {
       }
      
     }
+    midiValues[3] = value;
   }
   if (number == 52) {
     if(dimControl){
@@ -111,6 +115,7 @@ void controllerChange(int channel, int number, int value) {
         globalNumPart = int(map(value, 0, 127, 0, 15));
       }
     }
+    midiValues[4] = value;
   }
   if (number == 53) {
     if(dimControl){
@@ -126,6 +131,7 @@ void controllerChange(int channel, int number, int value) {
        globalSize = map(value, 0, 127, 0, 25);
     }
     }
+    midiValues[5] = value;
   }
   if (number == 54) {
     if(dimControl){
@@ -134,6 +140,7 @@ void controllerChange(int channel, int number, int value) {
         d1.intensity[3] = value * 2;
       }
     }
+    midiValues[6] = value;
   }
   if (number == 55) {
     if(dimControl){
@@ -142,6 +149,7 @@ void controllerChange(int channel, int number, int value) {
         d1.intensity[0] = value * 2;
       }
     }
+    midiValues[7] = value;
   }
   if (number == 56) {
     if(dimControl){
@@ -152,8 +160,8 @@ void controllerChange(int channel, int number, int value) {
     }else{
      alpha = value * 2; 
     }
+    midiValues[8] = value;
   }
-  
 }
 
 void noteOn(Note note){
@@ -268,6 +276,25 @@ void noteOn(Note note){
     }
   }
   
+  if(note.pitch() == 62){
+    for(int i = 0; i < modes.size(); i++){
+      if(i == 6){
+        Boolean m = modes.get(i);
+        m = true;
+        modes.set(i, m);
+        bus.sendNoteOn(0, 62, 127);
+      }else{
+        Boolean m = modes.get(i);
+        m = false; 
+        modes.set(i, m);
+        bus.sendNoteOn(0, 62, 0);
+      } 
+    }
+    if(lastMode != note.pitch()){
+      alpha = 0;
+    }
+  }
+  
   //Switching between effects on the Dimmer Pack Window
   
   if(note.pitch() == 40){
@@ -366,6 +393,10 @@ void noteOn(Note note){
         }
      }
      window = false;
+  }
+  
+  if(note.pitch() == 67){
+     colPop.switchColor(); 
   }
   
   if(note.pitch() == 7){

@@ -70,6 +70,8 @@ void drawColorReference(){
         fill(127);
         text("Current:", 50, 650);
         text("Cued:", 50, 850);
+        
+        
 }
     
 void drawControllerReference(){
@@ -81,8 +83,17 @@ void drawControllerReference(){
    int y1 = 550;
    int y2 = 725;
    
-   for(int i = 0; i < 8; i++){
-       int x = 550 + (((950 - 550) / 8) * i);
+   for(int i = 0; i < 9; i++){
+       int x = 550 + (((950 - 550) / 9) * i);
        line(x, y1, x, y2);
+   }
+   
+   for(int i = 0; i < midiValues.length; i++){
+      int tmpX1  = 550 +  (((950 - 550) / 9) * i);
+      int tmpX2 = 550 + (((950 - 550) / 9) * (i+1));
+      int tmpY = int(map(midiValues[i], 0, 127, 725, 550));
+      
+      line(tmpX1, tmpY, tmpX2, tmpY);
+      
    }
 }

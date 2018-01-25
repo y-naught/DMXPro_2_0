@@ -28,6 +28,10 @@ ArrayList<ThreeCh> thCh;
 int numFiCh = 0;
 ArrayList<FiveCh> fvCh;
 
+PVector[] LEDPositions = new PVector[numColorRails + numThCh];
+
+int[] midiValues = new int[9];
+
   ////////////////////////////////////////////////////////////
   /*            Text editor information                     */
   ////////////////////////////////////////////////////////////
@@ -51,7 +55,7 @@ Boolean dimControl = false;
 Boolean colSwitch = true;
 Boolean colCue = false;
 
-int numEffects = 6;
+int numEffects = 7;
 int numEffects2 = 6;
 ArrayList<PGraphics> Layers;
 ArrayList<PGraphics> Layers2;
@@ -117,3 +121,4 @@ LinearGradient linGrad;
 RotatingBar bar;
 PerlinNoise noise;
 Shower pShower;
+ColorPop colPop;

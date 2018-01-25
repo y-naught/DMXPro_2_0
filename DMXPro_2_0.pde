@@ -92,12 +92,29 @@ void setup() {
     Layers2.add(createGraphics(500,500));
   }
 
+  
+  
   sinGrad = new SinGradient();
   linGrad = new LinearGradient();
   bar = new RotatingBar();
   noise = new PerlinNoise();
   pShower = new Shower(10, 5);
+  colPop = new ColorPop();
   loadLightLocations();
+  
+  for(int i = 0; i < numColorRails; i++){
+     ColorRail cr = colorRails.get(i);
+     LEDPositions[i] = cr.location.copy();
+  }
+  
+  for(int i = 0; i < numThCh; i++){
+     ThreeCh tc = thCh.get(i);
+     LEDPositions[i + 2] = tc.location.copy();
+  }
+  
+  for(int i = 0; i < midiValues.length; i++){
+     midiValues[i] = 0; 
+  }
 }
 
 ////////////////////////////////////////////////////////////
@@ -205,6 +222,10 @@ void draw() {
     g.background(0);
     g.endDraw();
     pShower.run(g, g.width, color(red,green,blue), globalSpeed, globalSize, globalNumPart, color(red2, green2, blue2));
+  }
+  else if ( modes.get(6)){
+    PGraphics g = Layers.get(6);
+    colPop.display(g, color(red, green, blue), color(red2, green2, blue2));
   }
   
   if(modes2.get(0)){
