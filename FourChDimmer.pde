@@ -31,13 +31,14 @@ class FourChDimmer{
  }
  
  void display(){
+   rectMode(CENTER);
   for(int i = 0; i < channel.length; i++){
     strokeWeight(1);
     stroke(0);
     fill(255);
     rect(location[i].x + 500, location[i].y, sz, sz);
     fill(0);
-    text(channel[i] + " ", location[i].x + 500 - sz /5, location[i].y + (sz/4));
+    text(channel[i] + " ", location[i].x + 500, location[i].y);
   }
  }
  

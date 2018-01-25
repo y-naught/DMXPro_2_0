@@ -60,6 +60,12 @@ ArrayList<Boolean> modes2;
 Boolean inColTransition = false;
 int colLength = 20;
 int colFrame = 0;
+float colLerpFactor = 0;
+
+int lerpCol1 = 0;
+int lerpCol2 = 0;
+int lerpCol3 = 0;
+int lerpCol4 = 0;
 
 PGraphics bufferImage;
 Boolean inTransition = false;

@@ -30,12 +30,13 @@ class ColorRail{
       }
     
     void display(){
+         rectMode(CENTER);
          strokeWeight(1);
          stroke(0);
          fill(255);
          rect(location.x, location.y, szx, szy);
          fill(0);
-         text(channel[0] + " ", location.x, location.y + szy / 5); 
+         text(channel[0] + " ", location.x, location.y); 
     }
     
     void move(float x, float y){

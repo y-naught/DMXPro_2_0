@@ -383,6 +383,17 @@ void noteOn(Note note){
      }
   }
   
+  if(note.pitch() == 70){
+     if(!inColTransition){
+       inColTransition = true;
+       colFrame = frameCount + colLength;
+       lerpCol1 = color(red,green, blue);
+       lerpCol2 = color(red2, green2, blue2);
+       lerpCol3 = color(red3, green3, blue3);
+       lerpCol4 = color(red4, green4, blue4);
+     }
+  }
+  
   if(note.pitch() == 71){
      if(dimControl){
        dimControl = false; 

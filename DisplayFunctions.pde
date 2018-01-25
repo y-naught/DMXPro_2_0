@@ -7,6 +7,7 @@ void drawGrid(){
 }
 
 void drawColorReference(){
+    rectMode(CENTER);
     strokeWeight(5);
     if(!colCue){
       if(colSwitch){
@@ -71,3 +72,17 @@ void drawColorReference(){
         text("Cued:", 50, 850);
 }
     
+void drawControllerReference(){
+   strokeWeight(3);
+   stroke(255);
+   noFill();
+   rectMode(CORNER);
+   rect(550, 550, 400, 175);
+   int y1 = 550;
+   int y2 = 725;
+   
+   for(int i = 0; i < 8; i++){
+       int x = 550 + (((950 - 550) / 8) * i);
+       line(x, y1, x, y2);
+   }
+}

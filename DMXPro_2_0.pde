@@ -127,6 +127,32 @@ void draw() {
        if(tFrame - frameCount == 0){
            inTransition = false;
          }
+         
+         
+  if(inColTransition){
+      colLerpFactor = map(colFrame - frameCount, colLength, 0, 0, 1);
+      
+      int colTmp1 = lerpColor(lerpCol1, lerpCol3, colLerpFactor);
+      int colTmp2 = lerpColor(lerpCol2, lerpCol4, colLerpFactor);
+      
+      int rTmp1 = colTmp1 >> 16 & 0xFF;
+      int gTmp1 = colTmp1 >> 8 & 0xFF;
+      int bTmp1 = colTmp1 & 0xFF;
+      int rTmp2 = colTmp2 >> 16 & 0xFF;
+      int gTmp2 = colTmp2 >> 8 & 0xFF;
+      int bTmp2 = colTmp2 & 0xFF;
+      
+      red = rTmp1;
+      green = gTmp1;
+      blue = bTmp1;
+      red2 = rTmp2;
+      green2 = gTmp2;
+      blue2 = bTmp2;
+      
+      if(colFrame - frameCount == 0){
+          inColTransition = false; 
+       }
+  }
   
   background(0);
   
@@ -291,4 +317,5 @@ void draw() {
   runLights();
   drawColorReference();
   drawGrid();
+  drawControllerReference();
 }
