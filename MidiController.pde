@@ -10,10 +10,14 @@ void controllerChange(int channel, int number, int value) {
          }
       }
       
-    }else if(colSwitch){
+    }else if(colSwitch && !colCue){
         red = value * 2;
-    }else{
+    }else if(!colSwitch && !colCue){
         red2 = value * 2;
+    }else if(colSwitch && colCue){
+        red3 = value * 2; 
+    }else if(!colSwitch && colCue){
+        red4 = value * 2; 
     }
   }
   if (number == 49) {
@@ -21,11 +25,23 @@ void controllerChange(int channel, int number, int value) {
       if(modes2.get(0)){
         FourChDimmer d1 = DPacks.get(0);
         d1.intensity[0] = value * 2;
+      }else if(modes2.get(1)){
+        addRandomFrame = int(map(value, 0, 127, 5, 30));
+      }else if(modes2.get(3)){
+         globalSpeed = map(value, 0, 127, 0, PI/8); 
+      }else if(modes2.get(4)){
+         DPackRotation = map(value, 0, 127, 0, PI / 8); 
+      }else if(modes2.get(5)){
+         DGroup1 = int(map(value, 0 , 127, 0, 255)); 
       }
-    }else if(colSwitch){
+    }else if(colSwitch && !colCue){
       green = value * 2;
-    }else{
+    }else if(!colSwitch && !colCue){
       green2 = value * 2;
+    }else if(colSwitch && colCue){
+      green3 = value * 2; 
+    }else if(!colSwitch && colCue){
+      green4 = value * 2; 
     }
   }
   if (number == 50) {
@@ -33,11 +49,19 @@ void controllerChange(int channel, int number, int value) {
       if(modes2.get(0)){
       FourChDimmer d1 = DPacks.get(0);
       d1.intensity[1] = value * 2;
+      }else if(modes2.get(3)){
+         globalWidth = int(map(value, 0, 127, 0, 500)); 
+      }else if(modes2.get(5)){
+         DGroup2 = int(map(value, 0 , 127, 0, 255)); 
       }
-    }else if(colSwitch){
+    }else if(colSwitch && !colCue){
       blue = value * 2; 
-    }else{
+    }else if(!colSwitch && !colCue){
       blue2 = value * 2;
+    }else if(colSwitch && colCue){
+      blue3 = value * 2; 
+    }else if(!colSwitch && colCue){
+      blue4 = value * 2; 
     }
     
   }
@@ -46,6 +70,8 @@ void controllerChange(int channel, int number, int value) {
       if(modes2.get(0)){
         FourChDimmer d1 = DPacks.get(0);
         d1.intensity[2] = value * 2;
+      }else if(modes2.get(5)){
+         DGroup3 = int(map(value, 0 , 127, 0, 255)); 
       }
     }else{
       if(modes.get(1)){
@@ -71,6 +97,8 @@ void controllerChange(int channel, int number, int value) {
       if(modes2.get(0)){
         FourChDimmer d1 = DPacks.get(0);
         d1.intensity[3] = value * 2;
+      }else if(modes2.get(5)){
+         DGroup4 = int(map(value, 0 , 127, 0, 255)); 
       }
     }else{
       if(modes.get(2)){
@@ -306,13 +334,53 @@ void noteOn(Note note){
      }
      window = true;
   }
+  if(note.pitch() == 44){
+     for(int i = 0; i < modes2.size(); i++){
+        if(i == 4){
+          Boolean m = modes2.get(i);
+          m = true;
+          modes2.set(i, m);
+          bus.sendNoteOn(0, 44, 127);
+        }else{
+          Boolean m = modes2.get(i);
+          m = false; 
+          modes2.set(i, m);
+          bus.sendNoteOn(0, 44, 0);
+        }
+     }
+     window = false;
+  }
   
+  if(note.pitch() == 45){
+     for(int i = 0; i < modes2.size(); i++){
+        if(i == 5){
+          Boolean m = modes2.get(i);
+          m = true;
+          modes2.set(i, m);
+          bus.sendNoteOn(0, 45, 127);
+        }else{
+          Boolean m = modes2.get(i);
+          m = false; 
+          modes2.set(i, m);
+          bus.sendNoteOn(0, 45, 0);
+        }
+     }
+     window = false;
+  }
   
   if(note.pitch() == 7){
      if(mode < 2){
        mode++;
      }
      if(mode >=2){mode=0;}
+  }
+  
+  if(note.pitch() == 69){
+     if(!colCue){
+        colCue = true; 
+     }else{
+        colCue = false; 
+     }
   }
   
   if(note.pitch() == 71){
@@ -322,11 +390,22 @@ void noteOn(Note note){
        dimControl = true;
      }
   }
+  
+  if(note.pitch() == 89){
+     for(int i = 0; i < DPacks.size(); i++){
+        FourChDimmer d = DPacks.get(i);
+        for(int j = 0; j < d.intensity.length; j++){
+            d.intensity[j] = 0;
+        }
+     }
+     window = false;
+  }
+  
   if(note.pitch() == 98){
-    if(colSwitch){
-       colSwitch = false; 
+    if(!colSwitch){
+       colSwitch = true; 
     }else{
-       colSwitch = true;
+       colSwitch = false;
     }
   }
 }

@@ -5,7 +5,7 @@
 ////////////////////////////////////////////////////////////
 
 void setup() {
-  size(1000, 500);
+  size(1000, 1000);
   rectMode(CENTER);
   frameRate(30);
 
@@ -97,6 +97,7 @@ void setup() {
   bar = new RotatingBar();
   noise = new PerlinNoise();
   pShower = new Shower(10, 5);
+  loadLightLocations();
 }
 
 ////////////////////////////////////////////////////////////
@@ -132,10 +133,7 @@ void draw() {
   //println(frameRate);
   if (modes.get(0)) {
     PGraphics g = Layers.get(0);
-    float temp = map(sin(angle), -1, 1, 0, 255);
-    angle += PI / map(mouseX, 0, width/2, 100, 10);
     g.beginDraw();
-    //g.background(temp);
     g.background(red, green, blue);
     g.endDraw();
   }
@@ -183,25 +181,32 @@ void draw() {
   
   if(modes2.get(1)){
     PGraphics g = Layers2.get(1);
+    if(frameCount > nextRandomFrame){
+       nextRandomFrame = frameCount + addRandomFrame;
+       
+    }else if(nextRandomFrame == frameCount){
+      boolean triggered = false;
+      while(!triggered){
+      int tmpRandom = int(random(11));
+        if(tmpRandom != 10 && tmpRandom != 11 && tmpRandom != 4 && tmpRandom != 6 && tmpRandom !=12 && tmpRandom != curRandomLight){
+          curRandomLight = tmpRandom;
+          triggered = true;
+        }
+      }
+    }
     g.beginDraw();
     for(int i = 0; i < DPacks.size(); i++){
       FourChDimmer d = DPacks.get(i);
        for(int j = 0; j < d.location.length ;j++){
-         
-           d.intensity[j] += map(noise(nDif + i * j), 0, 0.5, -1, 1);
-           
-           nDif+=0.001;
-           if(d.intensity[j] < 0){
-              d.intensity[j] = 0;
-           }
-           else if(d.intensity[j] > 255){
-              d.intensity[j] = 255;
-           }
-        }
-     }
+           if(j+ i* d.location.length == curRandomLight){
+             d.intensity[j] = 255;
+            }else{
+               d.intensity[j] = 0; 
+            }
+       }
     g.endDraw();
+    }
   }
-  
   if(modes2.get(2)){
     PGraphics g = Layers2.get(2);
     g.beginDraw();
@@ -218,12 +223,47 @@ void draw() {
   if(modes2.get(3)){
       PGraphics g = Layers2.get(3);
       g.beginDraw();
+      g.background(0);
       g.rectMode(CENTER);
       g.translate(g.width/2, g.height/2);
       g.rotate(globalAngle);
       g.rect(0,0,globalWidth, g.height + 200);
       globalAngle += globalSpeed;
       g.endDraw();
+  }
+  
+  if(modes2.get(4)){
+      PGraphics g = Layers2.get(4);
+      FourChDimmer d1 = DPacks.get(0);
+      FourChDimmer d2 = DPacks.get(2);
+      
+      float tmpBri = map(sin(DPackAngle), -1, 1, 0, 255);
+      float tmpBriOp = map(sin(DPackAngle), 1, -1, 0, 255);
+      
+      DPackAngle += DPackRotation;
+      
+      d1.intensity[0] = int(tmpBri);
+      d1.intensity[3] = int(tmpBri);
+      d2.intensity[0] = int(tmpBriOp);
+      d2.intensity[1] = int(tmpBriOp);
+  }
+  
+  if(modes2.get(5)){
+      PGraphics g = Layers2.get(5);
+      FourChDimmer d1 = DPacks.get(0);
+      FourChDimmer d2 = DPacks.get(2);
+      FourChDimmer d3 = DPacks.get(1);
+      
+      DPackAngle += DPackRotation;
+      
+      d1.intensity[0] = DGroup1;
+      d1.intensity[3] = DGroup1;
+      d1.intensity[1] = DGroup2;
+      d1.intensity[2] = DGroup2;
+      d2.intensity[0] = DGroup3;
+      d2.intensity[1] = DGroup3;
+      d3.intensity[1] = DGroup4;
+      d3.intensity[3] = DGroup4;
   }
 
   for (int i = 0; i < modes.size(); i++) {
@@ -244,9 +284,11 @@ void draw() {
     }
   }
   
+  
+  
+  
   drawLights();
   runLights();
-  strokeWeight(2);
-  stroke(255);
-  line(500, 0, 500, 500);
+  drawColorReference();
+  drawGrid();
 }

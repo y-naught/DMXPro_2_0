@@ -30,6 +30,7 @@ class ColorRail{
       }
     
     void display(){
+         strokeWeight(1);
          stroke(0);
          fill(255);
          rect(location.x, location.y, szx, szy);

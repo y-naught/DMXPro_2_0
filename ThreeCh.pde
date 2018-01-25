@@ -15,7 +15,8 @@ class ThreeCh{
    }
    
    void display(){
-       stroke(0);
+      strokeWeight(1);
+      stroke(0);
       fill(255);
       rect(location.x, location.y, sz, sz);
       fill(0);
