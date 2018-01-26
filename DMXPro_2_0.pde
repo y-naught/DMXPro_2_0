@@ -100,6 +100,7 @@ void setup() {
   noise = new PerlinNoise();
   pShower = new Shower(10, 5);
   colPop = new ColorPop();
+  bBalls = new BouncingBalls();
   loadLightLocations();
   
   for(int i = 0; i < numColorRails; i++){
@@ -226,6 +227,10 @@ void draw() {
   else if ( modes.get(6)){
     PGraphics g = Layers.get(6);
     colPop.display(g, color(red, green, blue), color(red2, green2, blue2));
+  }
+  else if ( modes.get(7)){
+    PGraphics g = Layers.get(7);
+    bBalls.update(g, color(red, green, blue), color(red2, green2, blue2), globalNumBalls);
   }
   
   if(modes2.get(0)){

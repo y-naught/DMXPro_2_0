@@ -294,6 +294,24 @@ void noteOn(Note note){
       alpha = 0;
     }
   }
+  if(note.pitch() == 63){
+    for(int i = 0; i < modes.size(); i++){
+      if(i == 7){
+        Boolean m = modes.get(i);
+        m = true;
+        modes.set(i, m);
+        bus.sendNoteOn(0, 63, 127);
+      }else{
+        Boolean m = modes.get(i);
+        m = false; 
+        modes.set(i, m);
+        bus.sendNoteOn(0, 63, 0);
+      } 
+    }
+    if(lastMode != note.pitch()){
+      alpha = 0;
+    }
+  }
   
   //Switching between effects on the Dimmer Pack Window
   
