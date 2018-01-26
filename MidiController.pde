@@ -92,6 +92,9 @@ void controllerChange(int channel, int number, int value) {
     if(modes.get(5)){
        globalSpeed = map(value, 0, 127, 0, 15);
       }
+    if(modes.get(7)){
+       globalSpeed = map(value, 0, 127, 0, 20); 
+    }
      
     }
     midiValues[3] = value;
@@ -114,6 +117,9 @@ void controllerChange(int channel, int number, int value) {
       if(modes.get(5)){
         globalNumPart = int(map(value, 0, 127, 0, 15));
       }
+      if(modes.get(7)){
+        globalSize = map(value, 0 ,127, 0, 30); 
+      }
     }
     midiValues[4] = value;
   }
@@ -129,6 +135,9 @@ void controllerChange(int channel, int number, int value) {
       }
     if(modes.get(5)){
        globalSize = map(value, 0, 127, 0, 25);
+    }
+    if(modes.get(7)){
+       globalNumBalls = int(map(value, 0, 127, 0, 50)); 
     }
     }
     midiValues[5] = value;

@@ -94,6 +94,15 @@ void drawControllerReference(){
       int tmpY = int(map(midiValues[i], 0, 127, 725, 550));
       
       line(tmpX1, tmpY, tmpX2, tmpY);
-      
    }
+   
+   rectMode(CENTER);
+   if(dimControl){
+      fill(255); 
+   }else{
+      fill(0); 
+   }
+   textSize(15);
+   text("Dimmer:", 150, 950);
+   rect(250, 950, 30, 30);
 }

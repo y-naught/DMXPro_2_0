@@ -230,7 +230,7 @@ void draw() {
   }
   else if ( modes.get(7)){
     PGraphics g = Layers.get(7);
-    bBalls.update(g, color(red, green, blue), color(red2, green2, blue2), globalNumBalls);
+    bBalls.update(g, color(red, green, blue), color(red2, green2, blue2), globalNumBalls, globalSize, globalSpeed);
   }
   
   if(modes2.get(0)){
@@ -273,7 +273,8 @@ void draw() {
     g.endDraw();
     }
   }
-  if(modes2.get(2)){
+  //sine offset for 
+  else if(modes2.get(2)){
     PGraphics g = Layers2.get(2);
     g.beginDraw();
     for(int i = 0; i < DPacks.size(); i++){
@@ -286,7 +287,8 @@ void draw() {
     g.endDraw();
   }
   
-  if(modes2.get(3)){
+  //Rotating Bar Dimmer form (Still a hard edge, add gradient Possiblity
+  else if(modes2.get(3)){
       PGraphics g = Layers2.get(3);
       g.beginDraw();
       g.background(0);
@@ -298,7 +300,8 @@ void draw() {
       g.endDraw();
   }
   
-  if(modes2.get(4)){
+  //oscilating sin front and back light
+  else if(modes2.get(4)){
       PGraphics g = Layers2.get(4);
       FourChDimmer d1 = DPacks.get(0);
       FourChDimmer d2 = DPacks.get(2);
@@ -314,7 +317,8 @@ void draw() {
       d2.intensity[1] = int(tmpBriOp);
   }
   
-  if(modes2.get(5)){
+  //group dimmer pack control effect
+  else if(modes2.get(5)){
       PGraphics g = Layers2.get(5);
       FourChDimmer d1 = DPacks.get(0);
       FourChDimmer d2 = DPacks.get(2);
@@ -331,16 +335,10 @@ void draw() {
       d3.intensity[1] = DGroup4;
       d3.intensity[3] = DGroup4;
   }
-
-  for (int i = 0; i < modes.size(); i++) {
-    if (modes.get(i)) {
-      //PGraphics tmp = Layers.get(i);
-      //image(tmp, 0, 0);
-      
-    }
-  }
   
+  //draw Buffer Image for LED effects on screen
   image(bufferImage, 0, 0);
+  
   if(window){
     for(int i = 0; i < modes2.size(); i++){
       if(modes2.get(i)){

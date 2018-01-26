@@ -20,10 +20,13 @@ class BouncingBalls{
   }
   
   
-  void update(PGraphics g, int tmpCol1, int tmpCol2, int tmpNumBalls){
+  void update(PGraphics g, int tmpCol1, int tmpCol2, int tmpNumBalls, float tmpSz, float tmpSpeed){
+    
     col1 = tmpCol1;
     col2 = tmpCol2;
     numBalls = tmpNumBalls;
+    size = tmpSz;
+    speed = tmpSpeed;
     
     if(Balls.size() > numBalls){
       for(int i = 0; i < Balls.size() - numBalls; i++){
