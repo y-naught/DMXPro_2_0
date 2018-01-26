@@ -415,6 +415,10 @@ void noteOn(Note note){
      alpha = 0;
   }
   
+  if(note.pitch() == 10){
+     loadEffectsFile(2);
+     alpha = 0;
+  }
   if(note.pitch() == 69){
      if(!colCue){
         colCue = true; 
