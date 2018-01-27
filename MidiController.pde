@@ -95,6 +95,12 @@ void controllerChange(int channel, int number, int value) {
     if(modes.get(7)){
        globalSpeed = map(value, 0, 127, 0, 20); 
     }
+    if(modes.get(8)){
+       globalSpeed = map(value, 0, 127, 0, 30); 
+    }
+    if(modes.get(9)){
+       globalSpeed = map(value, 0, 127, 0, PI/8); 
+    }
      
     }
     midiValues[3] = value;
@@ -120,6 +126,9 @@ void controllerChange(int channel, int number, int value) {
       if(modes.get(7)){
         globalSize = map(value, 0 ,127, 0, 30); 
       }
+      if(modes.get(8)){
+        globalWidth = int(map(value, 0, 127, 1, 300)); 
+      }
     }
     midiValues[4] = value;
   }
@@ -135,10 +144,13 @@ void controllerChange(int channel, int number, int value) {
       }
     if(modes.get(5)){
        globalSize = map(value, 0, 127, 0, 25);
-    }
+      }
     if(modes.get(7)){
        globalNumBalls = int(map(value, 0, 127, 0, 50)); 
-    }
+      }
+    if(modes.get(8)){
+       globalRotation = map(value, 0 ,127, 0, TWO_PI); 
+      }
     }
     midiValues[5] = value;
   }
@@ -173,8 +185,16 @@ void controllerChange(int channel, int number, int value) {
   }
 }
 
+
+
+///////////////////////////////////////////////////
+/////            Button Handler               /////
+///////////////////////////////////////////////////
+
+
 void noteOn(Note note){
   //Switching Between Effects on the LED window 
+  
   if(note.pitch() == 56){
     for(int i = 0; i < modes.size(); i++){
     if(i == 0){
@@ -322,6 +342,44 @@ void noteOn(Note note){
     }
   }
   
+  if(note.pitch() == 48){
+    for(int i = 0; i < modes.size(); i++){
+      if(i == 8){
+        Boolean m = modes.get(i);
+        m = true;
+        modes.set(i, m);
+        bus.sendNoteOn(0, 48, 127);
+      }else{
+        Boolean m = modes.get(i);
+        m = false; 
+        modes.set(i, m);
+        bus.sendNoteOn(0, 48, 0);
+      } 
+    }
+    if(lastMode != note.pitch()){
+      alpha = 0;
+    }
+  }
+  
+  if(note.pitch() == 49){
+    for(int i = 0; i < modes.size(); i++){
+      if(i == 9){
+        Boolean m = modes.get(i);
+        m = true;
+        modes.set(i, m);
+        bus.sendNoteOn(0, 49, 127);
+      }else{
+        Boolean m = modes.get(i);
+        m = false; 
+        modes.set(i, m);
+        bus.sendNoteOn(0, 49, 0);
+      } 
+    }
+    if(lastMode != note.pitch()){
+      alpha = 0;
+    }
+  }
+  
   //Switching between effects on the Dimmer Pack Window
   
   if(note.pitch() == 40){
@@ -422,7 +480,20 @@ void noteOn(Note note){
      window = false;
   }
   
+  if(note.pitch() == 64){
+     globalRotation = 3 * PI / 2; 
+  }
+  
+  if(note.pitch() == 65){
+     globalRotation = PI / 2; 
+  }
+  
+  if(note.pitch() == 66){
+     globalRotation = PI; 
+  }
+  
   if(note.pitch() == 67){
+    globalRotation = 0;
      colPop.switchColor(); 
   }
   

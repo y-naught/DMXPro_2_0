@@ -55,7 +55,7 @@ Boolean dimControl = false;
 Boolean colSwitch = true;
 Boolean colCue = false;
 
-int numEffects = 8;
+int numEffects = 10;
 int numEffects2 = 6;
 ArrayList<PGraphics> Layers;
 ArrayList<PGraphics> Layers2;
@@ -124,3 +124,5 @@ PerlinNoise noise;
 Shower pShower;
 ColorPop colPop;
 BouncingBalls bBalls;
+LinearBar linBar;
+SineBackground sinBack;

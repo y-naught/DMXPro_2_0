@@ -101,6 +101,8 @@ void setup() {
   pShower = new Shower(10, 5);
   colPop = new ColorPop();
   bBalls = new BouncingBalls();
+  linBar = new LinearBar();
+  sinBack = new SineBackground();
   loadLightLocations();
   
   for(int i = 0; i < numColorRails; i++){
@@ -231,6 +233,16 @@ void draw() {
   else if ( modes.get(7)){
     PGraphics g = Layers.get(7);
     bBalls.update(g, color(red, green, blue), color(red2, green2, blue2), globalNumBalls, globalSize, globalSpeed);
+  }
+  else if(modes.get(8)){
+    PGraphics g = Layers.get(8);
+    linBar.checkEdges();
+    linBar.run(g, globalWidth, color(red, green, blue), color(red2, green2, blue2), globalSpeed, globalRotation);
+  }
+  else if(modes.get(9)){
+    PGraphics g = Layers.get(9);
+    sinBack.run(g, globalSpeed, color(red, green, blue), color(red2, green2, blue2));
+    
   }
   
   if(modes2.get(0)){
