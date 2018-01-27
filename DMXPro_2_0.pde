@@ -217,7 +217,7 @@ void draw() {
   
   else if ( modes.get(4)){
     PGraphics g = Layers.get(4);
-    noise.update(g, red, green, blue, globalSpeed, mode);
+    noise.update(g, red, green, blue, globalSpeed, mode, red2, green2, blue2);
   }
   else if (modes.get(5)){
     PGraphics g = Layers.get(5);

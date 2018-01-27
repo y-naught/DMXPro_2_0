@@ -22,7 +22,7 @@ class PerlinNoise{
     curY = 0.0;
   }
   
-  void update(PGraphics g, int r1, int g1, int b1,float mvx, int mdTmp){
+  void update(PGraphics g, int r1, int g1, int b1,float mvx, int mdTmp, int r2, int g2, int b2){
     g.beginDraw();
     g.loadPixels();
     noiseMode = mdTmp;
@@ -53,6 +53,16 @@ class PerlinNoise{
              int gr = int(noise(offX+0.4, offY) * 255);
              int b = int(noise(offX+0.8, offY) * 255);
              tmp = color(r,gr,b);
+          }
+          else if(noiseMode == 2){
+             float n = 0;
+             n = noise(offX, offY);
+             
+             int tmpCol1 = color(r1, g1, b1);
+             int tmpCol2 = color(r2, g2, b2);
+             
+             tmp = lerpColor(tmpCol1, tmpCol2, n);
+             
           }
           
           

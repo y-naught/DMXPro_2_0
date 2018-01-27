@@ -497,11 +497,11 @@ void noteOn(Note note){
      colPop.switchColor(); 
   }
   
-  if(note.pitch() == 7){
-     if(mode < 2){
+  if(note.pitch() == 86){
+     if(mode <= 2){
        mode++;
      }
-     if(mode >=2){mode=0;}
+     if(mode > 2){mode=0;}
   }
   
   if(note.pitch() == 8){
