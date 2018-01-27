@@ -44,7 +44,6 @@ class LinearBar{
      g.image(loadImage, 0, 0);
      g.endDraw();
      locX += speed;
-     println(locX);
   }
   
   void checkEdges(){
