@@ -23,7 +23,7 @@ int numDPacks = 3;
 ArrayList<FourChDimmer> DPacks;
 int numColorRails = 2;
 ArrayList<ColorRail> colorRails;
-int numThCh = 20;
+int numThCh = 23;
 ArrayList<ThreeCh> thCh;
 int numFiCh = 0;
 ArrayList<FiveCh> fvCh;
@@ -41,7 +41,7 @@ int[] dimLights = new int[12];
 float angle = 0;
 PrintWriter lightPositions;
 PrintWriter effectOutput;
-int numSavedFiles = 3;
+int numSavedFiles = 9   ;
 
   ////////////////////////////////////////////////////////////
   /*        Declaring variables for managing effects        */

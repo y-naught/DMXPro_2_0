@@ -323,8 +323,8 @@ void draw() {
       
       DPackAngle += DPackRotation;
       
-      d1.intensity[0] = int(tmpBri);
-      d1.intensity[3] = int(tmpBri);
+      d1.intensity[1] = int(tmpBri);
+      d1.intensity[2] = int(tmpBri);
       d2.intensity[0] = int(tmpBriOp);
       d2.intensity[1] = int(tmpBriOp);
   }

@@ -430,22 +430,22 @@ void noteOn(Note note){
      }
      window = false;
   }
-  if(note.pitch() == 43){
-     for(int i = 0; i < modes2.size(); i++){
-        if(i == 3){
-          Boolean m = modes2.get(i);
-          m = true;
-          modes2.set(i, m);
-          bus.sendNoteOn(0, 43, 127);
-        }else{
-          Boolean m = modes2.get(i);
-          m = false; 
-          modes2.set(i, m);
-          bus.sendNoteOn(0, 43, 0);
-        }
-     }
-     window = true;
-  }
+  //if(note.pitch() == 43){
+  //   for(int i = 0; i < modes2.size(); i++){
+  //      if(i == 3){
+  //        Boolean m = modes2.get(i);
+  //        m = true;
+  //        modes2.set(i, m);
+  //        bus.sendNoteOn(0, 43, 127);
+  //      }else{
+  //        Boolean m = modes2.get(i);
+  //        m = false; 
+  //        modes2.set(i, m);
+  //        bus.sendNoteOn(0, 43, 0);
+  //      }
+  //   }
+  //   window = true;
+  //}
   if(note.pitch() == 44){
      for(int i = 0; i < modes2.size(); i++){
         if(i == 4){
@@ -504,6 +504,11 @@ void noteOn(Note note){
      if(mode > 2){mode=0;}
   }
   
+  if(note.pitch() == 0){
+     loadEffectsFile(8);
+     alpha = 0;
+  }
+  
   if(note.pitch() == 8){
      loadEffectsFile(0);
      alpha = 0;
@@ -514,7 +519,30 @@ void noteOn(Note note){
   }
   
   if(note.pitch() == 10){
-     loadEffectsFile(2);
+     loadEffectsFile(2); 
+     alpha = 0;
+  }
+  
+  if(note.pitch() == 11){
+     loadEffectsFile(4);
+     alpha = 0;
+  }
+  
+  if(note.pitch() == 12){
+     loadEffectsFile(3);
+     alpha = 0;
+  }
+  if(note.pitch() == 13){
+     loadEffectsFile(5);
+     alpha = 0;
+  }
+  if(note.pitch() == 14){
+     loadEffectsFile(6);
+     alpha = 0;
+  }
+  
+  if(note.pitch() == 15){
+     loadEffectsFile(7);
      alpha = 0;
   }
   if(note.pitch() == 69){
